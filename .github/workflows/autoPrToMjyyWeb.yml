@@ -1,11 +1,11 @@
 # secrets.MJYYWEB_TOKEN需要权限token：
 # Fine-grained tokens:
-# 对MJYY-Web的存储库权限
+# 对MJYY_Web的存储库权限
 # Contents | Read and write | 推送分支需要
 # Pull requests | Read and write | 创建PR需要
 
 
-name: Sync Logo Changes to Website Dev
+name: Sync and PR to MJYY-MC/MJYY_Web
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Checkout mjyy-web Dev Branch
+      - name: Checkout mjyyweb Dev Branch
         uses: actions/checkout@v4
         with:
           repository: MJYY-MC/MJYY_Web
@@ -45,10 +45,10 @@ jobs:
           commit-message: '${{ github.event.head_commit.message }} (PR From GitHub Actions (MJYY-MC/logo#${{ github.run_number }}))'
 
           base: dev
-          branch: auto-pr/to-mjyyweb-${{ github.run_number }}
+          branch: MJYY-MC/logo/auto-pr/to-mjyyweb-${{ github.run_number }}
           
-          delete-branch: true
-          title: "来自MJYY-MC/logo的合并更改请求 (MJYY-MC/logo#${{ github.run_number }})"
+          delete-branch: true # 合并后将自动删除分支，但手动同意拉取请求将不会执行自动删除分支
+          title: "[GitHub Actions] 来自MJYY-MC/logo的合并更改请求 (MJYY-MC/logo#${{ github.run_number }})"
           body: |
             自动同步MJYY-MC/logo的部分更改至dev分支
             
